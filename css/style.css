@@ -1,0 +1,137 @@
+@charset "utf-8";
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.absolute {
+    position: absolute;
+}
+
+/* --- Menu --- */
+
+main, #menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    background-color: white;
+    border: 1px solid gray;
+    width: 60em;
+    height: 30em;
+}
+
+#menu {
+    background-color: rgb(138, 172, 138);
+    position: absolute;
+    width: 45em;
+    height: 22em;
+    gap: 10px;
+}
+
+#menu > h1 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+}
+
+button {
+    width: 6em;
+    height: 2em;
+    font-size: 30px;
+}
+
+/* --- Gameplay --- */
+
+#gameplay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#bot {
+    position: relative;
+    top: 40%;
+    left: 50%;
+    width: fit-content;
+    transform: translate(-50%, -50%);
+}
+
+#msg-box {
+    left: 65%;
+    max-width: 10em;
+    font-family: Arial, Helvetica, sans-serif;
+    hyphens: auto;
+}
+
+/* --- Introduçao --- */
+
+#rosto {
+    content: url(../imgs/rosto_lingua.png);
+    display: block;
+    width: 7em;
+    height: 7em;
+    background-color: red;
+}
+
+#mao-direita {
+    content: url(../imgs/mao_acenando.png);
+    display: block;
+    width: 6em;
+    height: 6em;
+    transform: translate(-8em, -12em);
+}
+
+#mao-direita.acenando {
+    animation: acenar 0.8s ease-in-out infinite;
+}
+
+@keyframes acenar {
+    0% {
+        rotate: -30deg;
+    }
+
+    50% {
+        rotate: 30deg;
+    }
+
+    100% {
+        rotate: -30deg;
+    }
+}
+
+/* --- Frase 1 --- */
+
+#rosto.rosto-lingua2 {
+    content: url(../imgs/rosto_lingua2.png);
+    animation: rotacao-leve 1.4s ease-in-out infinite;
+}
+
+#mao-direita.mao-v {
+    content: url(../imgs/mao_V.png);
+    width: 8em;
+    height: 8em;
+    animation: rotacao-leve 1.4s ease-in-out infinite;
+}
+
+@keyframes rotacao-leve {
+    0% {
+        rotate: -5deg;
+    }
+
+    50% {
+        rotate: 5deg;
+    }
+
+    100% {
+        rotate: -5deg;
+    }
+}
