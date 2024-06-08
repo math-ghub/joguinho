@@ -72,6 +72,100 @@ button {
     hyphens: auto;
 }
 
+#copos-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 35em;
+    margin: auto;
+    transform: translateY(15em);
+}
+
+#copos-container::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: rgb(94, 66, 34);
+    width: 35em;
+    height: 1em;
+    transform: translateY(2.2em);
+    z-index: 1;
+}
+
+.copo {
+    background-image: url(../imgs/copo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    width: 8em;
+    height: 10em;
+    position: relative;
+    top: -.9em;
+    scale: -1;
+}
+
+.copo.bolinha {
+    animation: upCup 4s ease-in-out;
+}
+
+@keyframes upCup {
+    0% {
+        transform: translateY(0);
+    }
+
+    5% {
+        transform: translateY(3em);
+    }
+
+    95% {
+        transform: translateY(3em);
+    }
+    
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.copo.bolinha .bola {
+    position: relative;
+    background-color: green;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    top: 2.4em;
+    left: 3em;
+    z-index: -3;
+    animation: upBall 4s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes upBall {
+    0% {
+        transform: translateY(0);
+    }
+
+    5% {
+        transform: translateY(-3em);
+    }
+
+    95% {
+        transform: translateY(-3em);
+        opacity: 1;
+    }
+    
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+#mao-esquerda {
+    scale: -1 1;
+    transform: translate(-7em, -12em);
+}
+
 /* --- Introduçao --- */
 
 #rosto {
@@ -134,4 +228,16 @@ button {
     100% {
         rotate: -5deg;
     }
+}
+
+/* --- Frase 2 --- */
+
+#rosto.rosto-feliz {
+    content: url(../imgs/rosto_feliz.png);
+}
+
+:is(#mao-direita, #mao-esquerda).mao-aberta {
+    content: url(../imgs/mao_aberta.png);
+    width: 8em;
+    height: 8em;
 }
