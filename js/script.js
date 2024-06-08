@@ -82,11 +82,14 @@ function startRound() {
     maoEsquerda.style.display = "block";
     maoEsquerda.classList.add("mao-aberta");
     
-    const copo_esquerdo = selectCup(coposDisponiveis);
-    const copo_direito = selectCup(coposDisponiveis);
+    setTimeout(() => {
+        const copo_esquerdo = selectCup(coposDisponiveis);
+        const copo_direito = selectCup(coposDisponiveis);
 
-    grab(maoEsquerda, copo_esquerdo);
-    grab(maoDireita, copo_direito);
+        grab(maoEsquerda, copo_esquerdo);
+        grab(maoDireita, copo_direito);
+    }, 1000);
+    
 
 
 }
