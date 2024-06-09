@@ -61,8 +61,6 @@ Array.from(copos).forEach(copo => {
         if (selectionModeActive) {
             if (copo.classList.contains("bolinha")) {
                 selected = true;
-                copo.classList.remove("bolinha");
-                setTimeout(() => copo.classList.add("bolinha"), 50);
             } else {
                 copo.classList.add("show");
             }
