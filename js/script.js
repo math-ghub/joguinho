@@ -17,6 +17,7 @@ const maoDireita = document.querySelector("#mao-direita");
 const maoEsquerda = document.querySelector("#mao-esquerda");
 const msgBox = document.querySelector("#msg-box");
 const msgDelay = 60;
+let seconds = 0.5;
 
 const coposContainer = document.querySelector("#copos-container");
 const copos = document.getElementsByClassName("copo");
@@ -35,7 +36,7 @@ async function startGame() {
     
     // ---------------------
     rosto.classList.add("rosto-lingua2");
-    maoDireita.classList.add("mao-v")
+    maoDireita.classList.add("mao-v");
     const frase1 = msg("tente memorizar onde está a bolinha!", 3);
     spawnBola();
     await frase1;
@@ -43,21 +44,58 @@ async function startGame() {
     maoDireita.classList.remove("mao-v");
 
     // ---------------------
-    startRound();
+    startRound(5);
+
+    // ---------------------
+
 }
 
-function switchCup() {
+function switchCup(h1, c1, h2, c2) {
+    const old_h1 = h1.getBoundingClientRect().left;
+    const old_h2 = h2.getBoundingClientRect().left;
 
+    const old_c1 = c1.getBoundingClientRect().left;
+    const old_c2 = c2.getBoundingClientRect().left;
+
+    const present_h1 = parseInt(h1.style.left);
+    const present_h2 = parseInt(h2.style.left);
+
+    const present_c1 = new WebKitCSSMatrix(window.getComputedStyle(c1).transform);
+    const present_c2 = new WebKitCSSMatrix(window.getComputedStyle(c2).transform);
+
+    h1.style.left = present_h1 + old_h2 - old_h1 + "px";
+    h2.style.left = present_h2 + old_h1 - old_h2 + "px";
+
+    c1.style.transform = "translateX(" + (present_c1.m41 + old_c1 - old_c2) + "px)";
+    c2.style.transform = "translateX(" + (present_c2.m41 + old_c2 - old_c1) + "px)";
+
+    setTimeout(() => {
+        h1.classList.remove("grab");
+        h2.classList.remove("grab");
+
+        c1.classList.remove("grab"); 
+        c2.classList.remove("grab");
+    }, seconds * 1000);
 }
 
 function grab(hand, cup) {
     const handRect = hand.getBoundingClientRect();
     const cupRect = cup.getBoundingClientRect();
 
-    const leftVal = hand.style.left != "" ? parseInt(hand.style.left) : 0
+    hand.classList.add("mao-aberta");
 
-    hand.style.left = leftVal + cupRect.left - handRect.left + "px";
+    const leftVal = hand.style.left != "" ? parseInt(hand.style.left) : 0;
+
+    hand.style.left = leftVal + cupRect.left - handRect.left + 10 + "px";
     hand.style.bottom = "-330px";
+
+    setTimeout(() => {
+        hand.classList.remove("mao-aberta");
+        hand.classList.add("grab");
+    
+        cup.classList.add("grab");
+    }, 500);
+    
 }
 
 function selectCup(list) {
@@ -72,26 +110,47 @@ function spawnBola() {
     copoBolinha.classList.add("bolinha");
 }
 
-function startRound() {
-    const coposDisponiveis = Array.from(copos);
-
+async function startRound(rounds) {
     rosto.classList.add("rosto-feliz");
     maoDireita.classList.add("mao-aberta");
     msg("", 0);
 
     maoEsquerda.style.display = "block";
     maoEsquerda.classList.add("mao-aberta");
-    
-    setTimeout(() => {
-        const copo_esquerdo = selectCup(coposDisponiveis);
-        const copo_direito = selectCup(coposDisponiveis);
+
+    await timer(1);
+
+    for (let i = 0; i < rounds; i++) {
+        let coposDisponiveis = Array.from(copos);
+        let copo_esquerdo = selectCup(coposDisponiveis);
+        let copo_direito = selectCup(coposDisponiveis);
 
         grab(maoEsquerda, copo_esquerdo);
         grab(maoDireita, copo_direito);
-    }, 1000);
     
+        await timer(seconds);
+        
+        switchCup(maoEsquerda, copo_esquerdo, maoDireita, copo_direito);
 
+        await timer(seconds);
+    }
 
+    rosto.classList.remove("rosto-feliz");
+
+    maoDireita.classList.add("mao-aberta");
+    maoEsquerda.classList.add("mao-aberta");
+
+    maoDireita.style.left = "0px";
+    maoDireita.style.bottom = "-200px";
+
+    maoEsquerda.style.left = "0px";
+    maoEsquerda.style.bottom = "-200px";
+
+    await timer(seconds);
+}
+
+async function timer(ms) {
+    await new Promise((r) => {setTimeout(() => r(), ms * 1000)});
 }
 
 async function msg(text, delay) {

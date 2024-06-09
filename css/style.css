@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+:root {
+    --mov-speed: 0.5s;
+}
+
 body {
     background-color: #f5f5f5;
     display: flex;
@@ -63,6 +67,7 @@ button {
     left: 50%;
     width: fit-content;
     transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 #msg-box {
@@ -164,6 +169,17 @@ button {
 #mao-esquerda {
     scale: -1 1;
     transform: translate(-7em, -12em);
+    transition: left var(--mov-speed) ease-in-out , bottom var(--mov-speed) ease-in-out ;
+}
+
+:is(#mao-esquerda, #mao-direita).grab {
+    content: url(../imgs/mao_segurando.png);
+    width: 6em;
+    height: 6em;
+}
+
+.copo.grab {
+    transition: all var(--mov-speed) ease-in-out;
 }
 
 /* --- Introduçao --- */
@@ -182,6 +198,7 @@ button {
     width: 6em;
     height: 6em;
     transform: translate(-8em, -12em);
+    transition: left var(--mov-speed) ease-in-out , bottom var(--mov-speed) ease-in-out ;
 }
 
 #mao-direita.acenando {
