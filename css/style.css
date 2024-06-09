@@ -111,6 +111,11 @@ button {
     scale: -1;
 }
 
+.copo.show {
+    top: -5em;
+    transition: top 0.5s ease-in-out;
+}
+
 .copo.bolinha {
     animation: upCup 4s ease-in-out;
 }
@@ -133,15 +138,19 @@ button {
     }
 }
 
-.copo.bolinha .bola {
+.bola {
     position: relative;
     background-color: green;
     border-radius: 50%;
+    opacity: 0;
     width: 2em;
     height: 2em;
     top: 2.4em;
     left: 3em;
     z-index: -3;
+}
+
+.copo.bolinha .bola {
     animation: upBall 4s ease-in-out;
     animation-fill-mode: forwards;
 }
@@ -149,6 +158,10 @@ button {
 @keyframes upBall {
     0% {
         transform: translateY(0);
+    }
+
+    2% {
+        opacity: 1;
     }
 
     5% {
@@ -180,6 +193,25 @@ button {
 
 .copo.grab {
     transition: all var(--mov-speed) ease-in-out;
+}
+
+.copo.canSelect:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+#rosto.rosto-rindo {
+    content: url(../imgs/rosto_rindo.png);
+}
+
+#rosto.rosto-rindo + #mao-direita {
+    content: url(../imgs/mao_negativo.png);
+    width: 6em;
+    height: 6em;
+}
+
+#rosto.rosto-rindo ~ #mao-esquerda {
+    opacity: 0;
 }
 
 /* --- Introduçao --- */
@@ -257,4 +289,10 @@ button {
     content: url(../imgs/mao_aberta.png);
     width: 8em;
     height: 8em;
+}
+
+/* --- Parte 2 --- */
+
+#rosto.rosto-assustado {
+    content: url(../imgs/rosto_assustado.png);
 }

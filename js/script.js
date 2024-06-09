@@ -17,11 +17,13 @@ const maoDireita = document.querySelector("#mao-direita");
 const maoEsquerda = document.querySelector("#mao-esquerda");
 const msgBox = document.querySelector("#msg-box");
 const msgDelay = 60;
+let selectionModeActive = false;
 let seconds = 0.5;
 
 const coposContainer = document.querySelector("#copos-container");
 const copos = document.getElementsByClassName("copo");
 let copoBolinha;
+let selected;
 
 async function startGame() {
     menu.style.display = "none";
@@ -44,10 +46,47 @@ async function startGame() {
     maoDireita.classList.remove("mao-v");
 
     // ---------------------
-    startRound(5);
+    await startRound(5);
+    await selectionMode();
 
     // ---------------------
+    if (!selected) return gameOver();
+    selected = false;
 
+    rosto.classList.add("rosto-assustado");
+}
+
+Array.from(copos).forEach(copo => {
+    copo.onclick = () => {
+        if (selectionModeActive) {
+            if (copo.classList.contains("bolinha")) {
+                selected = true;
+                copo.classList.remove("bolinha");
+                setTimeout(() => copo.classList.add("bolinha"), 50);
+            } else {
+                copo.classList.add("show");
+            }
+            selectionModeActive = false;
+
+        }
+    }
+})
+
+function gameOver() {
+    rosto.classList.add("rosto-rindo");
+    msg("você perdeu!", 1);
+}
+
+async function selectionMode() {
+    Array.from(copos).forEach(copo => copo.classList.add("canSelect"));
+
+    selectionModeActive = true;
+
+    while (selectionModeActive) {
+        await timer(0.2);
+    }
+
+    Array.from(copos).forEach(copo => copo.classList.remove("canSelect"));
 }
 
 function switchCup(h1, c1, h2, c2) {
