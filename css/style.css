@@ -109,6 +109,7 @@ button {
     position: relative;
     top: -.9em;
     scale: -1;
+    transition: transform var(--mov-speed) ease-in-out;
 }
 
 .copo.show {
@@ -189,10 +190,6 @@ button {
     content: url(../imgs/mao_segurando.png);
     width: 6em;
     height: 6em;
-}
-
-.copo.grab {
-    transition: all var(--mov-speed) ease-in-out;
 }
 
 .copo.canSelect:hover {
@@ -295,3 +292,22 @@ button {
 #rosto.rosto-assustado {
     content: url(../imgs/rosto_assustado.png);
 }
+
+/* --- Frase 1 --- */
+#rosto.rosto-emburrecido {
+    content: url(../imgs/rosto_emburrecido.png);
+}
+
+#rosto.rosto-desconfiado {
+    content: url(../imgs/rosto_desconfiado.png);
+}
+
+#mao-direita.mao-palmas {
+    content: url(../imgs/mao_palmas.png);
+}
+
+#rosto.rosto-enfurecido {
+    content: url(../imgs/rosto_enfurecido.png);
+}
+
+/* --- Parte 3 --- */

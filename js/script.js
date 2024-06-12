@@ -46,7 +46,10 @@ async function startGame() {
     maoDireita.classList.remove("mao-v");
 
     // ---------------------
+    rosto.classList.add("rosto-feliz");
     await startRound(5);
+
+    rosto.classList.remove("rosto-feliz");
     await selectionMode();
 
     // ---------------------
@@ -54,6 +57,87 @@ async function startGame() {
     selected = false;
 
     rosto.classList.add("rosto-assustado");
+
+    showBolinha();
+    await timer(2);
+    resetCups();
+
+    rosto.classList.remove("rosto-assustado");
+    maoDireita.classList.remove("mao-aberta");
+    maoEsquerda.classList.remove("mao-aberta");
+
+    // ---------------------
+    rosto.classList.add("rosto-emburrecido");
+    maoDireita.classList.add("mao-palmas");
+    maoEsquerda.style.display = "none";
+
+    const frase1_p2 = msg("vamos mais uma vez!", 1);
+    await frase1_p2;
+
+    rosto.classList.remove("rosto-emburrecido");
+    maoDireita.classList.remove("mao-palmas");
+    maoDireita.style.display = "none";
+
+    // ---------------------
+    rosto.classList.add("rosto-desconfiado");
+    spawnBola();
+    await timer(3);
+
+    setDifficulty(0.3);
+    await startRound(7);
+
+    await selectionMode();
+    rosto.classList.remove("rosto-desconfiado");
+
+    // ---------------------
+    if (!selected) return gameOver();
+    selected = false;
+
+    rosto.classList.add("rosto-enfurecido");
+
+    showBolinha();
+    await timer(2);
+    resetCups();
+    // ---------------------
+    changeBackground("red");
+}
+
+function changeBackground(color) {
+    gameplay.style.transition = "background-color 1s linear";
+    gameplay.style.backgroundColor = color;
+}
+
+function setDifficulty(lvl) {
+    maoDireita.style.transition = `left ${lvl}s ease-in-out, bottom ${lvl}s ease-in-out`;
+    maoEsquerda.style.transition = `left ${lvl}s ease-in-out, bottom ${lvl}s ease-in-out`;
+
+    Array.from(copos).forEach(copo => copo.style.transition = `transform ${lvl}s ease-in-out`);
+    seconds = lvl;
+}
+
+function resetCups() {
+    const bolinha = copoBolinha.getElementsByClassName("bola")[0];
+    copoBolinha.classList.remove("bolinha");
+
+    bolinha.style.opacity = 0;
+    bolinha.style["animation-fill-mode"] = "forwards";
+    bolinha.style.transform = "translate(0, 0)";
+
+    Array.from(copos).forEach(copo => {
+        copo.style.transform = "translate(0, 0)";
+        copo.style.transition = "none";
+    });
+}
+
+function showBolinha() {
+    const bolinha = copoBolinha.getElementsByClassName("bola")[0];
+    copoBolinha.style.transition = "none";
+
+    copoBolinha.style.transform = `translate(${new WebKitCSSMatrix(window.getComputedStyle(copoBolinha).transform).m41}px, 50px)`;
+
+    bolinha.style.opacity = 1;
+    bolinha.style["animation-fill-mode"] = "none";
+    bolinha.style.transform = `translate(${new WebKitCSSMatrix(window.getComputedStyle(bolinha).transform).m41}px, -50px)`;
 }
 
 Array.from(copos).forEach(copo => {
@@ -71,6 +155,7 @@ Array.from(copos).forEach(copo => {
 })
 
 function gameOver() {
+    rosto.className = "";
     rosto.classList.add("rosto-rindo");
     msg("você perdeu!", 1);
 }
@@ -131,7 +216,7 @@ function grab(hand, cup) {
         hand.classList.add("grab");
     
         cup.classList.add("grab");
-    }, 500);
+    }, seconds * 1000);
     
 }
 
@@ -148,7 +233,7 @@ function spawnBola() {
 }
 
 async function startRound(rounds) {
-    rosto.classList.add("rosto-feliz");
+    maoDireita.style.display = "block";
     maoDireita.classList.add("mao-aberta");
     msg("", 0);
 
@@ -171,8 +256,6 @@ async function startRound(rounds) {
 
         await timer(seconds);
     }
-
-    rosto.classList.remove("rosto-feliz");
 
     maoDireita.classList.add("mao-aberta");
     maoEsquerda.classList.add("mao-aberta");
