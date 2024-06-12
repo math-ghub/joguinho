@@ -2,6 +2,7 @@
 
 const menu = document.querySelector("#menu");
 const gameplay = document.querySelector("#gameplay");
+const vitoria = document.querySelector("#vitoria");
 const playButton = document.querySelector("#jogar");
 const optionsButton = document.querySelector("#opcoes");
 
@@ -124,7 +125,7 @@ async function startGame() {
 
 function winner() {
     gameplay.style.display = "none";
-    menu.style.display = "flex";
+    vitoria.style.display = "block";
 }
 
 function changeBackground(color) {
