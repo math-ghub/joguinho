@@ -53,6 +53,58 @@ button {
     font-size: 30px;
 }
 
+/* --- Vitória --- */
+
+#vitoria {
+    background-color: rgb(239, 228, 169);
+    text-align: center;
+    width: 80%;
+    height: 90%;
+}
+
+#vitoria > h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 60px;
+    color: rgb(16, 111, 6);
+    text-shadow: 2px 1px 4px rgba(0, 0, 0, 0.514);
+    margin-bottom: 1px;
+}
+
+#vitoria > h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    margin-top: 1px
+}
+
+#gifs {
+    display: flex;
+    flex-direction: row;
+}
+
+#gifs > img {
+    display: block;
+    width: 14em;
+    height: 14em;
+    margin: auto;
+}
+
+#gifs > img:first-child {
+    height: 10em;
+}
+
+#gifs::before {
+    content: "voce bom demas";
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 13em;
+    height: 3em;
+    transform: translate(1.8em, -1em);
+    background-color: white;
+}
+
 /* --- Gameplay --- */
 
 #gameplay {

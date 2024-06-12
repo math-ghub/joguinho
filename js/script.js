@@ -119,12 +119,12 @@ async function startGame() {
 
     // ---------------------
     if (!selected) return gameOver();
-
+    winner();
 }
 
 function winner() {
-    gameplay.display = "none";
-    menu.display = "block";
+    gameplay.style.display = "none";
+    menu.style.display = "flex";
 }
 
 function changeBackground(color) {
