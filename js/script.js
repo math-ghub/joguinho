@@ -84,7 +84,7 @@ async function startGame() {
     await timer(3);
 
     setDifficulty(0.3);
-    await startRound(7);
+    await startRound(12);
 
     await selectionMode();
     rosto.classList.remove("rosto-desconfiado");
@@ -98,8 +98,33 @@ async function startGame() {
     showBolinha();
     await timer(2);
     resetCups();
+
     // ---------------------
-    changeBackground("red");
+    changeBackground("lightcoral");
+
+    await timer(0.6);
+    rosto.classList.add("rosto-tremulo");
+
+    await timer(0.4);
+    rosto.classList.add("rosto-bravo");
+
+    // ---------------------
+    spawnBola();
+    await timer(3);
+
+    setDifficulty(0.15);
+
+    await startRound(20);
+    await selectionMode();
+
+    // ---------------------
+    if (!selected) return gameOver();
+
+}
+
+function winner() {
+    gameplay.display = "none";
+    menu.display = "block";
 }
 
 function changeBackground(color) {
